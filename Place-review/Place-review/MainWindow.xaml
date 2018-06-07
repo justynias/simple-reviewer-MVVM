@@ -1,0 +1,36 @@
+﻿<Window x:Class="Place_review.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Place_review"
+        xmlns:my="clr-namespace:Place_review.Additionals"
+        xmlns:viewmodels="clr-namespace:Place_review.ViewModels"
+        xmlns:views="clr-namespace:Place_review.Views"
+        xmlns:models="clr-namespace:Place_review.Models"
+         DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
+        mc:Ignorable="d"
+        Title="Place Review" Height="350" Width="525">
+    <Window.Resources>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Roboto" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Frame  Source="./Views/ReviewListView.xaml" x:Name="ReviewList" 
+                    NavigationUIVisibility="Hidden"
+                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="1"
+                    Width="{Binding ActualWidth, 
+                    RelativeSource = {RelativeSource AncestorType = {x:Type Window}}}" 
+                    Height="{Binding ActualHeight, 
+                    RelativeSource ={RelativeSource AncestorType = {x:Type Window}}}"/>
+    </Grid>
+</Window>
