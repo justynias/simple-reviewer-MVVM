@@ -83,11 +83,15 @@
     <Compile Include="Additionals\IFrameNavigationService.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Review.cs" />
+    <Compile Include="ViewModels\ReviewViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ReviewListViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\ReviewListView.xaml.cs">
       <DependentUpon>ReviewListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReviewView.xaml.cs">
+      <DependentUpon>ReviewView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -102,6 +106,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\ReviewListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReviewView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

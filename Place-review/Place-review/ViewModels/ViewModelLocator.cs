@@ -18,6 +18,7 @@ using GalaSoft.MvvmLight.Ioc;
 using System;
 using Place_review.Additionals.NavigationService;
 
+
 namespace Place_review.ViewModels
 {
     /// <summary>
@@ -48,13 +49,16 @@ namespace Place_review.ViewModels
 
             var navigationService = new FrameNavigationService();
             navigationService.Configure("Main", new Uri("../MainWindow.xaml", UriKind.Relative));
-            navigationService.Configure("ReviewList", new Uri("../ReviewListView.xaml", UriKind.Relative));
+            navigationService.Configure("ReviewList", new Uri("./Views/ReviewListView.xaml", UriKind.Relative));
+            navigationService.Configure("Review", new Uri("./Views/ReviewView.xaml", UriKind.Relative));
 
 
             SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
 
             SimpleIoc.Default.Register<MainViewModel>(true);
             SimpleIoc.Default.Register<ReviewListViewModel>(true);
+            SimpleIoc.Default.Register<ReviewViewModel>(true);
+
 
         }
 
@@ -74,6 +78,13 @@ namespace Place_review.ViewModels
             }
         }
 
+        public ReviewViewModel Review
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ReviewViewModel>();
+            }
+        }
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

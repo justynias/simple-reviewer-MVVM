@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Place_review.Views"
+             xmlns:local="clr-namespace:Place_review"
+             xmlns:my="clr-namespace:Place_review.Additionals" 
+             xmlns:viewmodels="clr-namespace:Place_review.ViewModels" 
+             xmlns:views="clr-namespace:Place_review.Views" 
+             xmlns:models="clr-namespace:Place_review.Models"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding Source={StaticResource Locator}, Path=ReviewList}">
     <Grid>
-        <TextBox Text="List of reviews"/>
+        <Button Content="Add new review" Command="{Binding AddReviewCommand}"/>
     </Grid>
 </UserControl>

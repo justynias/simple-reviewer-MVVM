@@ -14,21 +14,15 @@ using Place_review.Models;
 
 namespace Place_review.ViewModels
 {
-   public class ReviewListViewModel: ViewModelBase
+    public class ReviewViewModel : ViewModelBase
     {
         private IFrameNavigationService _navigationService;
-        public ICommand AddReviewCommand{ get; private set; }
-        public ReviewListViewModel(IFrameNavigationService navigationService)
+        public ReviewViewModel(IFrameNavigationService navigationService)
         {
             _navigationService = navigationService;
-            AddReviewCommand = new RelayCommand(AddReview);
 
-        }
-
-        public void AddReview()
-        {
-            Console.WriteLine("loading");
-            _navigationService.NavigateTo("Review");
         }
     }
+
+
 }

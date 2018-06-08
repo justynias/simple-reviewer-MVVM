@@ -1,13 +1,14 @@
 ﻿<Application x:Class="Place_review.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-             xmlns:local="clr-namespace:Place_review" StartupUri="MainWindow.xaml" 
+             xmlns:local="clr-namespace:Place_review" 
              xmlns:my="clr-namespace:Place_review.Additionals" 
              xmlns:viewmodels="clr-namespace:Place_review.ViewModels"
+             xmlns:views="clr-namespace:Place_review.Views" 
+             x:Name="App"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d"
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
-  <Application.Resources>
-    <ResourceDictionary>
-      <viewmodels:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:Place_review.ViewModels" />
-    </ResourceDictionary>
-  </Application.Resources>
+    <Application.Resources>
+        <viewmodels:ViewModelLocator x:Key="Locator" d:IsDataSource="True"/>
+    </Application.Resources>
+   
 </Application>
