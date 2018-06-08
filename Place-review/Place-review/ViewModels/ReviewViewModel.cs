@@ -16,11 +16,33 @@ namespace Place_review.ViewModels
 {
     public class ReviewViewModel : ViewModelBase
     {
+        private Review currentReview;
         private IFrameNavigationService _navigationService;
+
+        public ICommand SaveReviewCommand { get; private set; }
+        public Review CurrentReview
+        {
+            get
+            {
+                return currentReview;
+            }
+
+            set
+            {
+
+                Set(ref currentReview, value);
+            }
+        }
         public ReviewViewModel(IFrameNavigationService navigationService)
         {
             _navigationService = navigationService;
+            CurrentReview = new Review();
 
+            SaveReviewCommand = new RelayCommand(SaveReview);
+        }
+        public void SaveReview()
+        {
+            Console.WriteLine(CurrentReview.Name);
         }
     }
 

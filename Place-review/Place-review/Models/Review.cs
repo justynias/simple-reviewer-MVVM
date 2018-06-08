@@ -8,13 +8,24 @@ using Newtonsoft.Json;
 
 namespace Place_review.Models
 {
-    class Review
+    public class Review
     {
         //GUID? depends on validation with unique names
-        string Name { get; set; }
+        public string Name { get; set; }
         public ObservableCollection<Category> Categories { get; set; }
 
         [JsonIgnore]
         public double Mean { get; set; }
+
+        public Review()
+        {
+            Categories = new ObservableCollection<Category>();
+            Categories.Add(new Category("Food"));
+            Categories.Add(new Category("Localization"));
+            Categories.Add(new Category("Prices"));
+            Categories.Add(new Category("Music"));
+            Categories.Add(new Category("Atmosphere"));
+
+        }
     }
 }
