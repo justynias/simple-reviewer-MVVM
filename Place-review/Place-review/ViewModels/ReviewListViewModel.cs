@@ -131,7 +131,6 @@ namespace Place_review.ViewModels
             FilterCommand = new RelayCommand(Filter);
             LoadDataCommand = new RelayCommand(LoadData);
             DeleteReviewCommand = new RelayCommand(DeleteReview, ()=>SelectedReview!=null);
-            EditReviewCommand = new RelayCommand(EditReview, () => SelectedReview != null);
             dataProvider = new DataProvider();
             ReviewList = new ObservableCollection<Review>();
 
@@ -150,9 +149,10 @@ namespace Place_review.ViewModels
 
         public void DeleteReview()
         {
-            dataProvider.DeleteReview(SelectedReview);
-            ReviewList.RemoveAt(reviewList.IndexOf(reviewList.First(r => r.Name == SelectedReview.Name))); 
+            Task task = Task.Factory.StartNew(() => dataProvider.DeleteReview(SelectedReview));
             //updating viewmodel, bugs with loading json?
+            task.Wait();
+            LoadData();
         }
         public void Filter()
         {
@@ -173,25 +173,16 @@ namespace Place_review.ViewModels
             }
         
         }
-        public void EditReview()
-        {
-        //    Messenger.Default.Send<CurrentReviewMessage>(new CurrentReviewMessage
-        //    {
-        //        CurrentReview = SelectedReview
-
-        //    });
-            _navigationService.NavigateTo("Review");
-
-        }
+      
         public void AddReview()
         {
-            //Messenger.Default.Send<CurrentReviewMessage>(new CurrentReviewMessage
-            //{
-            //    CurrentReview = new Review()
+            Messenger.Default.Send<ReviewListMessage>(new ReviewListMessage
+            {
+                ReviewList = this.ReviewList
 
-            //});
+            });
             _navigationService.NavigateTo("Review");
         }
-
+       
     }
 }

@@ -79,7 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Additionals\CurrentReviewMessage.cs" />
+    <Compile Include="Additionals\ReviewListMessage.cs" />
     <Compile Include="Additionals\FrameNavigationService.cs" />
     <Compile Include="Additionals\IFrameNavigationService.cs" />
     <Compile Include="Additionals\MVVMMessage.cs" />

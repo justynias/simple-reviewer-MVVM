@@ -16,7 +16,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Place_review.Additionals;
 namespace Place_review.ViewModels
 {
-    public class ReviewViewModel : ViewModelBase//, IDataErrorInfo
+    public class ReviewViewModel : ViewModelBase, IDataErrorInfo
     {
         private Review currentReview;
         private string name;
@@ -30,30 +30,40 @@ namespace Place_review.ViewModels
         public RelayCommand ReturnToReviewListCommand { get; private set; }
 
 
-        //public string this[string columnName]
-        //{
-        //    get
-        //    {
-        //        string result = string.Empty;
-        //        if (columnName == "Name")
-        //        {
-        //            if (CanSave())
-        //                result = "Name can not be empty";
-        //        }
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = string.Empty;
+                if (columnName == "Name")
+                {
+                    if (ReviewAlreadyExist())
+                        result = "The review already exists";
+                }
 
-        //        return result;
-        //    }
-        //}
-        //public string Error
-        //{
-        //    get { return null; }
-        //}
+                return result;
+            }
+        }
+        public string Error
+        {
+            get { return null; }
+        }
 
-        //public bool CanSave()
-        //{
-        //    return !(String.IsNullOrEmpty(Name));
-        //}
+       
+        public ObservableCollection<Review> ReviewList
+        {
+            get
+            {
+                return reviewList;
 
+            }
+
+            set
+            {
+                Set(ref reviewList, value);
+
+            }
+        }
 
         public string Name 
         {
@@ -95,7 +105,6 @@ namespace Place_review.ViewModels
         }
 
      
-
         public ReviewViewModel(IFrameNavigationService navigationService)
         {
             _navigationService = navigationService;
@@ -111,27 +120,22 @@ namespace Place_review.ViewModels
 
             SaveReviewCommand = new RelayCommand(SaveReview, CanSave);
             ReturnToReviewListCommand = new RelayCommand(ReturnToReviewList);
-            // Messenger.Default.Register<CurrentReviewMessage>(this, this.HandleCurrentReviewMessage);
+            Messenger.Default.Register<ReviewListMessage>(this, this.HandleReviewListMessage);
 
         }
 
-        //private void HandleCurrentReviewMessage(CurrentReviewMessage message)
-        //{
-        //    this.CurrentReview = message.CurrentReview;
-        //    this.Name = message.CurrentReview.Name;
-        //    this.Categories = message.CurrentReview.Categories;
-        //    Console.WriteLine(Categories.ElementAt(1).Rate);
-            
-        //}
+        private void HandleReviewListMessage(ReviewListMessage message)
+        {
+            this.ReviewList = message.ReviewList;
+
+        }
         public void SaveReview()
         {
             CurrentReview = new Review() { Name = this.Name, Categories=this.Categories };
 
             dataProvider.AddNewReview(CurrentReview);
              _navigationService.NavigateTo("ReviewList");
-           
             Name = null;
-            //Categories = null; 
 
        }
         public void ReturnToReviewList()
@@ -140,9 +144,17 @@ namespace Place_review.ViewModels
             _navigationService.NavigateTo("ReviewList");
         }
 
+        private bool ReviewAlreadyExist()
+        {
+            foreach(var r in ReviewList)
+            {
+                if (r.Name == Name) return true;
+            }
+            return false;
+        }
         private bool CanSave()
         {
-            return !(String.IsNullOrEmpty(Name) || String.IsNullOrWhiteSpace(Name));
+            return !(ReviewAlreadyExist() || (String.IsNullOrEmpty(Name) || String.IsNullOrWhiteSpace(Name)));
         }
     }
 

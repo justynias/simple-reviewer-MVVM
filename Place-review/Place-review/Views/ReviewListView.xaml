@@ -35,20 +35,8 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <!--<ItemsControl ItemsSource="{Binding Categories, Mode=TwoWay, 
-                    UpdateSourceTrigger=PropertyChanged}"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="2">
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <Label Content="{Binding CategoryName}" Margin="10,0,0,0"/>
-                        <Slider Margin="10,0,20,0" Value="{Binding Weight, Mode=TwoWay, 
-                UpdateSourceTrigger=PropertyChanged}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>--> 
-        <StackPanel Grid.Column="0"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4">
+        <StackPanel Grid.Column="0"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="0,20,0,0">
             <Label Content="Food" Margin="10,0,0,0"/>
             <Slider Margin="10,0,20,0" Value="{Binding WeightFood, Mode=TwoWay, 
                 UpdateSourceTrigger=PropertyChanged}"/>
@@ -65,25 +53,32 @@
         <StackPanel Orientation="Horizontal" Grid.Column="0"  Grid.Row="4" Grid.ColumnSpan="3">
             <Button Content="Filter" Command="{Binding FilterCommand}" Width="60" Margin="10,0,10,0" />
             <Button Content="Add" Command="{Binding AddReviewCommand}" Width="60" Margin="10,0,0,-0.4"/>
-            
-        </StackPanel>
-        
-        <ListBox Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="5" ItemsSource="{Binding Path=ReviewList,
-            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedReview, Mode=TwoWay, 
-            UpdateSourceTrigger=PropertyChanged}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="200" />
-                        <Label Content="{Binding Mean, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="40" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <StackPanel Orientation="Vertical" Grid.Column="6"  Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" HorizontalAlignment="Left" Margin="10,0,0,0"  >
-            <Button Content="Delete" Command="{Binding DeleteReviewCommand}" Width="40" Margin="0,20" />
-            <Button Content="Edit" Command="{Binding EditReviewCommand}" Width="40" />
 
         </StackPanel>
+
+        <ListView Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="5" ItemsSource="{Binding Path=ReviewList,
+            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedReview, Mode=TwoWay, 
+            UpdateSourceTrigger=PropertyChanged}" BorderThickness="0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{Binding Mean, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="40" HorizontalAlignment="Left" FontWeight="Bold" />
+                            <TreeViewItem ItemsSource="{Binding Categories}" Header="{Binding Name}" FontSize="13.333" >
+                                <TreeViewItem.ItemTemplate>
+                                    <HierarchicalDataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="{Binding CategoryName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="150" />
+                                            <Label Content="{Binding Rate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="40" />
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                </TreeViewItem.ItemTemplate>
+                            </TreeViewItem>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Grid.Column="5" Grid.Row="4" Content="Delete" Command="{Binding DeleteReviewCommand}" Margin="4.6,10,18,9.6" Width="40" />
     </Grid>
 </UserControl>

@@ -18,11 +18,6 @@ namespace Place_review.DataService
         private async void SaveToJson(ObservableCollection<Review> newReviewCollection)
         {
 
-            //ObservableCollection<Review> updatedReviewCollection = new ObservableCollection<Review>();
-            //Task task = Task.Factory.StartNew(() => updatedReviewCollection=LoadJson());
-            // task.Wait();
-            //updatedReviewCollection = LoadJson();
-            ///updatedReviewCollection.Add(newReview);
             try
             {
                 string newJson = JsonConvert.SerializeObject(newReviewCollection);
@@ -53,21 +48,15 @@ namespace Place_review.DataService
             catch (System.IO.FileNotFoundException) { }
             catch (JsonReaderException) { }
             catch (System.IO.IOException) { Console.WriteLine("DUPA"); }
-
-            //foreach(var r in reviewCollection)
-            //{
-            //    Console.WriteLine(r.Name);
-
-            //}
             if (reviewCollection == null) return new ObservableCollection<Review>();
             else return reviewCollection;
         }
     
         public void AddNewReview (Review newReview)
         {
-            var ReviewList = LoadData();
-            ReviewList.Add(newReview);
-            SaveToJson(ReviewList);
+            var reviewList = LoadData();
+            reviewList.Add(newReview);
+            SaveToJson(reviewList);
 
         }
         public void DeleteReview(Review reviewToDelete)

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Place_review.Models;
+using System.Collections.ObjectModel;
 
 namespace Place_review.Additionals
 {
-    public class CurrentReviewMessage
+    public class ReviewListMessage
     {
-        public Review CurrentReview { get; set; }
+        public ObservableCollection<Review> ReviewList { get; set; }
     }
 }
