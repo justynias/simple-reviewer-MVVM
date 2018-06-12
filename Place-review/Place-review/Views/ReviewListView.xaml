@@ -8,10 +8,82 @@
              xmlns:viewmodels="clr-namespace:Place_review.ViewModels" 
              xmlns:views="clr-namespace:Place_review.Views" 
              xmlns:models="clr-namespace:Place_review.Models"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding Source={StaticResource Locator}, Path=ReviewList}">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadDataCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        <Button Content="Add new review" Command="{Binding AddReviewCommand}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <!--<ItemsControl ItemsSource="{Binding Categories, Mode=TwoWay, 
+                    UpdateSourceTrigger=PropertyChanged}"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="2">
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Label Content="{Binding CategoryName}" Margin="10,0,0,0"/>
+                        <Slider Margin="10,0,20,0" Value="{Binding Weight, Mode=TwoWay, 
+                UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>--> 
+        <StackPanel Grid.Column="0"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4">
+            <Label Content="Food" Margin="10,0,0,0"/>
+            <Slider Margin="10,0,20,0" Value="{Binding WeightFood, Mode=TwoWay, 
+                UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Localization" Margin="10,0,0,0"/>
+            <Slider Margin="10,0,20,0" Value="{Binding WeightLocalization, Mode=TwoWay, 
+                UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Prices" Margin="10,0,0,0"/>
+            <Slider Margin="10,0,20,0" Value="{Binding WeightPrices, Mode=TwoWay, 
+                UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Music" Margin="10,0,0,0"/>
+            <Slider Margin="10,0,20,0" Value="{Binding WeightMusic, Mode=TwoWay, 
+                UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="0"  Grid.Row="4" Grid.ColumnSpan="3">
+            <Button Content="Filter" Command="{Binding FilterCommand}" Width="60" Margin="10,0,10,0" />
+            <Button Content="Add" Command="{Binding AddReviewCommand}" Width="60" Margin="10,0,0,-0.4"/>
+            
+        </StackPanel>
+        
+        <ListBox Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="5" ItemsSource="{Binding Path=ReviewList,
+            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedReview, Mode=TwoWay, 
+            UpdateSourceTrigger=PropertyChanged}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="200" />
+                        <Label Content="{Binding Mean, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="40" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Orientation="Vertical" Grid.Column="6"  Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" HorizontalAlignment="Left" Margin="10,0,0,0"  >
+            <Button Content="Delete" Command="{Binding DeleteReviewCommand}" Width="40" Margin="0,20" />
+            <Button Content="Edit" Command="{Binding EditReviewCommand}" Width="40" />
+
+        </StackPanel>
     </Grid>
 </UserControl>

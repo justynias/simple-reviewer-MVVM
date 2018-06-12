@@ -10,8 +10,8 @@
              xmlns:views="clr-namespace:Place_review.Views" 
              
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding Source={StaticResource Locator}, Path=Review}">
+             d:DesignHeight="300"
+             DataContext="{Binding Source={StaticResource Locator}, Path=Review}" Width="225">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -32,49 +32,15 @@
         <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="6">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
 
-                <StackPanel.Resources>
-                    <Style x:Key="ratingButton" TargetType="{x:Type ToggleButton}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                    <Path Name="starPath" Fill="Gray" Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0">
-                                        <Path.LayoutTransform>
-                                            <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
-                                        </Path.LayoutTransform>
-                                    </Path>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsChecked" Value="True">
-                                            <Setter TargetName="starPath" Property="Fill" Value="Gold"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
+                <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" Width="182">
+                    <Label Content="Name"/>
+                    <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
 
+                <ItemsControl ItemsSource="{Binding Categories, Mode=OneWay, 
+                    UpdateSourceTrigger=PropertyChanged}"  Foreground="#FF21272C" Width="200" Height="172" 
+                          HorizontalAlignment="Center" Margin="0,20">
 
-
-
-
-
-                </StackPanel.Resources>
-                <StackPanel Orientation="Horizontal" >
-                <Label Content="Name"/>
-                    <TextBox Text="{Binding CurrentReview.Name , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="158"/>
-              </StackPanel>
-            <ItemsControl ItemsSource="{Binding CurrentReview.Categories, Mode=OneWay, 
-                    UpdateSourceTrigger=PropertyChanged}"  Foreground="#FF21272C" Width="200" Height="200" 
-                          HorizontalAlignment="Center" Margin="0,0,0,20">
-                    <!-- target the wrapper parent of the child with a style -->
-
-                
-                
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="4" >
@@ -83,23 +49,21 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Orientation="Horizontal" >
-                                    <Label FontWeight="Bold" Content="{Binding Name}" Width="90"/>
-                                        <RadioButton Style="{StaticResource ratingButton}" GroupName="{Binding Name}" />
-                                        <RadioButton Style="{StaticResource ratingButton}" GroupName="{Binding Name}"/>
-                                        <RadioButton Style="{StaticResource ratingButton}" GroupName="{Binding Name}"/>
-                                        <RadioButton Style="{StaticResource ratingButton}" GroupName="{Binding Name}"/>
-                                        <RadioButton Style="{StaticResource ratingButton}" GroupName="{Binding Name}"/>
+                                    <Label FontWeight="Bold" Content="{Binding CategoryName}" Width="90" />
+                                    <ComboBox ItemsSource="{Binding Rates}" SelectedValue="{Binding Rate}" />
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <Button Content="Save" Command="{Binding SaveReviewCommand}"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Return" Command="{Binding ReturnToReviewListCommand}" Height="20" HorizontalAlignment="Left" Width="80" HorizontalContentAlignment="Center"  Margin="0,0,20,0" />
+                    <Button Content="Save" Command="{Binding SaveReviewCommand}"  HorizontalAlignment="Center"  Width="80" Margin="20,0,0,0" />
+                </StackPanel>
 
             </StackPanel>
         </DockPanel>
-
-
     </Grid>
 </UserControl>
 

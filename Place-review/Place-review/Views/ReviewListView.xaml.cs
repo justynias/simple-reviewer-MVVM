@@ -24,5 +24,10 @@ namespace Place_review.Views
         {
             InitializeComponent();
         }
+
+        private void ItemsControl_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+
+        }
     }
 }

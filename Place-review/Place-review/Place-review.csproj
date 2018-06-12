@@ -79,8 +79,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Additionals\CurrentReviewMessage.cs" />
     <Compile Include="Additionals\FrameNavigationService.cs" />
     <Compile Include="Additionals\IFrameNavigationService.cs" />
+    <Compile Include="Additionals\MVVMMessage.cs" />
+    <Compile Include="DataService\DataProvider.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="ViewModels\ReviewViewModel.cs" />
