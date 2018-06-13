@@ -13,7 +13,6 @@
              DataContext="{Binding Source={StaticResource Locator}, Path=Review}" Width="225">
     <UserControl.Resources>
         
-            <!-- Error template for changing behaviour -->
             <ControlTemplate x:Key="ErrorTemplate">
                 <DockPanel LastChildFill="True">
                     <Border BorderBrush="Red" BorderThickness="1">

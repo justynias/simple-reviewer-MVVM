@@ -19,8 +19,6 @@ namespace Place_review.Models
             Rates = new[] {0,1,2,3,4,5};
             CategoryName = name;
             Weight = 1;
-
-          
         }
     }
 }

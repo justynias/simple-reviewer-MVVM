@@ -19,6 +19,8 @@ namespace Place_review.ViewModels
 {
     public class ReviewListViewModel : ViewModelBase
     {
+        #region private fields
+
         private IFrameNavigationService _navigationService;
         private ObservableCollection<Review> reviewList;
         private ObservableCollection<Category> categories;
@@ -27,7 +29,12 @@ namespace Place_review.ViewModels
         private int weightPrices=1;
         private int weightMusic=1;
         private Review selectedReview;
+        private DataProvider dataProvider;
 
+
+        #endregion
+
+        #region public properties
         public int WeightFood
         {
             get
@@ -116,26 +123,30 @@ namespace Place_review.ViewModels
             }
         }
 
-        private DataProvider dataProvider;
         public ICommand AddReviewCommand { get; private set; }
         public ICommand LoadDataCommand { get; private set; }
         public ICommand DeleteReviewCommand { get; private set; }
-        public ICommand EditReviewCommand { get; private set; }
         public ICommand FilterCommand{ get; private set; }
 
-
+        #endregion 
+        //ctor
         public ReviewListViewModel(IFrameNavigationService navigationService)
         {
             _navigationService = navigationService;
+            dataProvider = new DataProvider();
+            ReviewList = new ObservableCollection<Review>();
+
+            //commands
             AddReviewCommand = new RelayCommand(AddReview);
             FilterCommand = new RelayCommand(Filter);
             LoadDataCommand = new RelayCommand(LoadData);
             DeleteReviewCommand = new RelayCommand(DeleteReview, ()=>SelectedReview!=null);
-            dataProvider = new DataProvider();
-            ReviewList = new ObservableCollection<Review>();
+            
 
         }
-        public void LoadData()
+
+        #region methods
+        private void LoadData()
         {
             ReviewList = dataProvider.LoadData();
             var sortableList = ReviewList.OrderByDescending(r => r.Mean).ToList();
@@ -147,14 +158,14 @@ namespace Place_review.ViewModels
 
         }
 
-        public void DeleteReview()
+        private void DeleteReview()
         {
             Task task = Task.Factory.StartNew(() => dataProvider.DeleteReview(SelectedReview));
             //updating viewmodel, bugs with loading json?
             task.Wait();
             LoadData();
         }
-        public void Filter()
+        private void Filter()
         {
             foreach(var r in ReviewList)
             {
@@ -174,7 +185,7 @@ namespace Place_review.ViewModels
         
         }
       
-        public void AddReview()
+        private void AddReview()
         {
             Messenger.Default.Send<ReviewListMessage>(new ReviewListMessage
             {
@@ -183,6 +194,8 @@ namespace Place_review.ViewModels
             });
             _navigationService.NavigateTo("Review");
         }
-       
+        #endregion
+
+
     }
 }

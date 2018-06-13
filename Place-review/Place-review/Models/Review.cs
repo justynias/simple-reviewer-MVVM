@@ -11,8 +11,7 @@ namespace Place_review.Models
 {
     public class Review
     {
-        //GUID? depends on validation with unique names
-        public string Name { get; set; }
+        public string Name { get; set; } 
         public ObservableCollection<Category> Categories { get; set; }
 
         [JsonIgnore]
@@ -26,11 +25,6 @@ namespace Place_review.Models
         }
         public Review()
         {
-            //Categories = new ObservableCollection<Category>();
-            //Categories.Add(new Category("Food"));
-            //Categories.Add(new Category("Localization"));
-            //Categories.Add(new Category("Prices"));
-            //Categories.Add(new Category("Music"));
 
         }
 
@@ -43,7 +37,8 @@ namespace Place_review.Models
                 sum = sum + c.Weight * c.Rate;
                 weights = weights + c.Weight;
             }
-            return Math.Round(sum / weights, 2);
+            if (weights != 0) return Math.Round(sum / weights, 2);
+            else return 0.0;
         }
         
     }

@@ -12,6 +12,43 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding Source={StaticResource Locator}, Path=ReviewList}">
+    <UserControl.Resources>
+        
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF34AD7F" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Path x:Name="PathIcon" Width="15" Height="25" Stretch="Fill" Fill="#4C87B3" HorizontalAlignment="Left" Margin="17,0,0,0" />
+                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF00E5A7" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter TargetName="PathIcon" Property="Fill" Value="Black" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="OrangeRed" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+  
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -35,6 +72,7 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
+        
 
         <StackPanel Grid.Column="0"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="0,20,0,0">
             <Label Content="Food" Margin="10,0,0,0"/>
@@ -79,6 +117,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Grid.Column="5" Grid.Row="4" Content="Delete" Command="{Binding DeleteReviewCommand}" Margin="4.6,10,18,9.6" Width="40" />
+        <Button Grid.Column="5" Grid.Row="4" Content="Delete" Command="{Binding DeleteReviewCommand}" Margin="4.6,10,18,9.6" Width="50" />
     </Grid>
 </UserControl>

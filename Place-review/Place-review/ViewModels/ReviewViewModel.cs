@@ -18,38 +18,19 @@ namespace Place_review.ViewModels
 {
     public class ReviewViewModel : ViewModelBase, IDataErrorInfo
     {
+        #region private fields
+        private IFrameNavigationService _navigationService;
         private Review currentReview;
         private string name;
         private ObservableCollection<Category> categories;
         private DataProvider dataProvider;
         private ObservableCollection<Review> reviewList;
 
-
-        private IFrameNavigationService _navigationService;
+        #endregion
+        #region public properties
         public RelayCommand SaveReviewCommand { get; private set; }
         public RelayCommand ReturnToReviewListCommand { get; private set; }
 
-
-        public string this[string columnName]
-        {
-            get
-            {
-                string result = string.Empty;
-                if (columnName == "Name")
-                {
-                    if (ReviewAlreadyExist())
-                        result = "The review already exists";
-                }
-
-                return result;
-            }
-        }
-        public string Error
-        {
-            get { return null; }
-        }
-
-       
         public ObservableCollection<Review> ReviewList
         {
             get
@@ -65,7 +46,7 @@ namespace Place_review.ViewModels
             }
         }
 
-        public string Name 
+        public string Name
         {
             get
             {
@@ -103,8 +84,32 @@ namespace Place_review.ViewModels
                 Set(ref categories, value);
             }
         }
+        #endregion
+        #region IDataErrorInfo
 
-     
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = string.Empty;
+                if (columnName == "Name")
+                {
+                    if (ReviewAlreadyExist())
+                        result = "The review already exists";
+                }
+
+                return result;
+            }
+        }
+        public string Error
+        {
+            get { return null; }
+        }
+        #endregion
+
+
+
+        //ctor
         public ReviewViewModel(IFrameNavigationService navigationService)
         {
             _navigationService = navigationService;
@@ -123,13 +128,14 @@ namespace Place_review.ViewModels
             Messenger.Default.Register<ReviewListMessage>(this, this.HandleReviewListMessage);
 
         }
+        #region methods
 
         private void HandleReviewListMessage(ReviewListMessage message)
         {
             this.ReviewList = message.ReviewList;
 
         }
-        public void SaveReview()
+        private void SaveReview()
         {
             CurrentReview = new Review() { Name = this.Name, Categories=this.Categories };
 
@@ -138,12 +144,13 @@ namespace Place_review.ViewModels
             Name = null;
 
        }
-        public void ReturnToReviewList()
+        private void ReturnToReviewList()
         {
             CurrentReview = null;
             _navigationService.NavigateTo("ReviewList");
         }
 
+        //validation
         private bool ReviewAlreadyExist()
         {
             foreach(var r in ReviewList)
@@ -156,7 +163,7 @@ namespace Place_review.ViewModels
         {
             return !(ReviewAlreadyExist() || (String.IsNullOrEmpty(Name) || String.IsNullOrWhiteSpace(Name)));
         }
+        #endregion
     }
-
 
 }
