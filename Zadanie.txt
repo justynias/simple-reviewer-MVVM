@@ -1,3 +1,4 @@
 Wytyczne do kolosa:
 Zgodnie z paradygmatami programowania obiektowego stwórz aplikacjê z interfejsem u¿ytkownika wykorzystuj¹c trójwarstowo¹ architekturê.
 zadbaj o walidacjê interfejsu graficznego, dane przechowywuj w pliku xml lub json.
+Aplikaca s³u¿¹ca do wystawiania opinii oraz ich filtrowania.

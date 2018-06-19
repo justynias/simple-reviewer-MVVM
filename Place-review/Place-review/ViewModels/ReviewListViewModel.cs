@@ -23,7 +23,6 @@ namespace Place_review.ViewModels
 
         private IFrameNavigationService _navigationService;
         private ObservableCollection<Review> reviewList;
-        private ObservableCollection<Category> categories;
         private int weightFood=1;
         private int weightLocalization=1;
         private int weightPrices=1;
@@ -109,19 +108,7 @@ namespace Place_review.ViewModels
 
             }
         }
-        public ObservableCollection<Category> Categories
-        {
-            get
-            {
-                return categories;
-            }
-
-            set
-            {
-
-                Set(ref categories, value);
-            }
-        }
+      
 
         public ICommand AddReviewCommand { get; private set; }
         public ICommand LoadDataCommand { get; private set; }
@@ -149,6 +136,7 @@ namespace Place_review.ViewModels
         private void LoadData()
         {
             ReviewList = dataProvider.LoadData();
+
             var sortableList = ReviewList.OrderByDescending(r => r.Mean).ToList();
             ReviewList.Clear();
             for (int i = 0; i < sortableList.Count; i++)
